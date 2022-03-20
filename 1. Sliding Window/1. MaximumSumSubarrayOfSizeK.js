@@ -1,22 +1,21 @@
-const maximumSumSubarrayOfSizeK = (arr, k) => {
+const solution = (A, K) => {
+  if (K > 0 && K <= A.length) {
+    let currentSum = 0;
+    let maxSumSeen = -Infinity;
 
-  if (arr.length < k) return null;
+    for (let i = 0; i < A.length; i++) {
+      currentSum += A[i];
+      if (i >= (K - 1)) {
+        maxSumSeen = Math.max(maxSumSeen, currentSum);
+        currentSum -= A[i - (K - 1)];
+      }
+    }
 
-  let maxSum = 0;
-
-  // Compute size of first subarray of size k starting from index 0
-  for (let i = 0; i < k; i++) {
-    maxSum += arr[i];
+    return maxSumSeen;
   }
 
-  // Start from index of k and keep sliding the window by size k
-  // removing first element of previous window and adding the last element of
-  // current window
-  let tempSum = maxSum;
-  for (let j = k; j < arr.length; j++) {
-    tempSum += arr[j] - arr[j - k];
-    maxSum = Math.max(maxSum, tempSum);
-  }
-
-  return tempSum;
+  return null;
 }
+
+const arr1 = [1, 3, 9, 8, 11, 3, 5, 7];
+const size = 3;
